@@ -48,15 +48,10 @@ services:
       - rustfs-network
     restart: unless-stopped
     healthcheck:
-      test:
-        [
-          "CMD",
-          "sh", "-c",
-          "curl -f http://localhost:9000/health && curl -f http://localhost:9001/rustfs/console/health"
-        ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      test: ["CMD", "curl", "-f", "http://localhost:9000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
       start_period: 40s
     depends_on:
       otel-collector:
@@ -73,7 +68,7 @@ services:
       target: dev
       # Pure development environment
     ports:
-      - "9010:9000" # S3 API port  
+      - "9010:9000" # S3 API port
       - "9011:9001" # Console port
     environment:
       - RUSTFS_VOLUMES=/data/rustfs{0..3}
@@ -98,8 +93,9 @@ services:
       test:
         [
           "CMD",
-          "sh", "-c",
-          "curl -f http://localhost:9000/health && curl -f http://localhost:9001/rustfs/console/health"
+          "sh",
+          "-c",
+          "curl -f http://localhost:9000/health && curl -f http://localhost:9001/rustfs/console/health",
         ]
       interval: 30s
       timeout: 10s

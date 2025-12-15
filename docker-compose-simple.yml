@@ -18,8 +18,6 @@ services:
       - RUSTFS_EXTERNAL_ADDRESS=:9000
       - RUSTFS_CORS_ALLOWED_ORIGINS=*
       - RUSTFS_CONSOLE_CORS_ALLOWED_ORIGINS=*
-      - RUSTFS_ACCESS_KEY=rustfsadmin # CHANGEME
-      - RUSTFS_SECRET_KEY=rustfsadmin # CHANGEME
       - RUSTFS_OBS_LOGGER_LEVEL=info
       - RUSTFS_TLS_PATH=/opt/tls
       # Object Cache
@@ -39,15 +37,16 @@ services:
       test:
         [
           "CMD",
-          "sh", "-c",
-          "curl -f http://localhost:9000/health && curl -f http://localhost:9001/rustfs/console/health"
+          "sh",
+          "-c",
+          "curl -f http://localhost:9000/health && curl -f http://localhost:9001/rustfs/console/health",
         ]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
 
-# RustFS volume permissions fixer service
+  # RustFS volume permissions fixer service
   volume-permission-helper:
     image: alpine
     volumes:
