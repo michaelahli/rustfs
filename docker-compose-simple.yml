@@ -7,9 +7,6 @@ services:
     container_name: rustfs-server
     security_opt:
       - "no-new-privileges:true"
-    ports:
-      - "9000:9000" # S3 API port
-      - "9001:9001" # Console port
     environment:
       - RUSTFS_VOLUMES=/data/rustfs{0...3}
       - RUSTFS_ADDRESS=0.0.0.0:9000
