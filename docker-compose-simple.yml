@@ -27,8 +27,6 @@ services:
       - rustfs_data_2:/data/rustfs2
       - rustfs_data_3:/data/rustfs3
       - logs:/app/logs
-    networks:
-      - rustfs-network
     restart: unless-stopped
     healthcheck:
       test:
@@ -59,9 +57,6 @@ services:
         exit 0
       "
     restart: "no"
-
-networks:
-  rustfs-network:
 
 volumes:
   rustfs_data_0:
